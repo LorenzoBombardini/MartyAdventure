@@ -1,7 +1,6 @@
 package edu.unibo.martyadventure.entity.controller;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.badlogic.gdx.Input;
