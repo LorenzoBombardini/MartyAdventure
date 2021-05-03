@@ -3,6 +3,8 @@
 	<name>MartyAdventure</name>
 	<comment>Project MartyAdventure created by Buildship.</comment>
 	<projects>
+		<project>Marty&apos;s Adventure-core</project>
+		<project>Marty&apos;s Adventure-desktop</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
