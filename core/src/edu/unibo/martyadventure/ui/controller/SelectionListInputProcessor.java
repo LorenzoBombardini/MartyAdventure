@@ -1,4 +1,4 @@
-package edu.unibo.martyadventure.ui;
+package edu.unibo.martyadventure.ui.controller;
 
 import java.util.Optional;
 
@@ -121,5 +121,4 @@ public class SelectionListInputProcessor implements InputProcessor {
         // unused
         return false;
     }
-
 }
