@@ -10,7 +10,7 @@ import com.badlogic.gdx.InputProcessor;
 import edu.unibo.martyadventure.entity.EntityDirection;
 import edu.unibo.martyadventure.entity.EntityState;
 
-/*
+/**
  * Handles the player input
  */
 public class PlayerInputProcessor implements InputProcessor {
@@ -21,11 +21,30 @@ public class PlayerInputProcessor implements InputProcessor {
      * singletons may change, resulting in an inconsistent orientation across runs
      * when the player presses more than a single key.
      */
-    private static EntityDirection[] orderedDirections = { EntityDirection.UP, EntityDirection.DOWN,
+    private static final EntityDirection[] orderedDirections = { EntityDirection.UP, EntityDirection.DOWN,
             EntityDirection.LEFT, EntityDirection.RIGHT };
+    private static PlayerInputProcessor instance;
 
-    private final ControllableEntity playerEntity;
-    private final HashMap<EntityDirection, Boolean> directionsMap;
+    private HashMap<EntityDirection, Boolean> directionsMap;
+    private ControllableEntity playerEntity;
+
+    /**
+     * Get the player input processor singleton.
+     * 
+     * There may be 1 and only 1 player input processor to prevent multiple
+     * instances catching each's other's keycodes or sending multiple updates to the
+     * same player
+     */
+    public static PlayerInputProcessor getPlayerInputProcessor() {
+        if (PlayerInputProcessor.instance == null) {
+            PlayerInputProcessor.instance = new PlayerInputProcessor();
+        }
+        return PlayerInputProcessor.instance;
+    }
+
+    private PlayerInputProcessor() {
+        resetState();
+    }
 
     private HashMap<EntityDirection, Boolean> getDirectionsMap() {
         final HashMap<EntityDirection, Boolean> map = new HashMap<EntityDirection, Boolean>();
@@ -36,11 +55,11 @@ public class PlayerInputProcessor implements InputProcessor {
         return map;
     }
 
-    /*
+    /**
      * Sets the given keycode to the given value
      * 
      * @return true if the keycode was valid and the value has been set, false
-     * otherwise.
+     *         otherwise.
      */
     private boolean setSelectedDirection(final int keycode, final boolean value) {
         Optional<EntityDirection> pressedKey = matchKeycode(keycode);
@@ -51,7 +70,7 @@ public class PlayerInputProcessor implements InputProcessor {
         return false;
     }
 
-    /*
+    /**
      * @return the matching key to the given keycode, if valid.
      */
     private Optional<EntityDirection> matchKeycode(final int keycode) {
@@ -69,10 +88,34 @@ public class PlayerInputProcessor implements InputProcessor {
         }
     }
 
-    /*
-     * Update the player entity state and set the next position
+    /**
+     * @param player set the player entity to update.
      */
-    private void processInput(final float delta) {
+    public void setPlayer(final ControllableEntity player) {
+        this.playerEntity = player;
+    }
+
+    /**
+     * @return the currently updated player entity.
+     */
+    public ControllableEntity getPlayer() {
+        return this.playerEntity;
+    }
+
+    /**
+     * Resets the internal state. May be used after the processor has been
+     * temporarily disabled or paused.
+     */
+    public void resetState() {
+        this.directionsMap = getDirectionsMap();
+    }
+
+    /**
+     * Update the player entity state and set the next position.
+     * 
+     * @param delta time since last update.
+     */
+    public void update(float delta) {
         boolean anyDirection = false;
         for (EntityDirection direction : PlayerInputProcessor.orderedDirections) {
             if (this.directionsMap.get(direction)) {
@@ -88,15 +131,6 @@ public class PlayerInputProcessor implements InputProcessor {
         if (!anyDirection) {
             this.playerEntity.setState(EntityState.IDLE);
         }
-    }
-
-    public PlayerInputProcessor(ControllableEntity player) {
-        this.playerEntity = player;
-        this.directionsMap = getDirectionsMap();
-    }
-
-    public void update(float delta) {
-        processInput(delta);
     }
 
     @Override
