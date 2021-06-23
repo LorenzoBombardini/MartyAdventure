@@ -6,14 +6,14 @@ import java.util.List;
 public class Weapon {
 
     private String name;
-
+    private double damageMultiplier;
+    private List<Move> moveList = new ArrayList<>();
+    
     public static enum WeaponType {
         MELEE, RANGED;
     }
     
     WeaponType type;
-    private double damageMultiplier;
-    private List<Move> moveList = new ArrayList<>();
 
     public static final int MOVE_LIST_SIZE = 4;
 
@@ -22,8 +22,7 @@ public class Weapon {
      * 
      * @param name             The name of the weapon
      * @param type             The type of the weapon (Melee o Ranged)
-     * @param damageMultiplier The multiplier that will be applied to the Move
-     *                         damage
+     * @param damageMultiplier The multiplier that will be applied to the Move damage
      * @param moveList         The list of possible moves of that weapon
      */
     protected Weapon(String name, WeaponType type, double damageMultiplier, List<Move> moveList) {
@@ -80,11 +79,4 @@ public class Weapon {
         else
             System.err.println("moveList ERROR");
     }
-
-    /*
-     * public void printWeapon() { System.out.println(getName());
-     * System.out.println(getType()); System.out.println(getDamageMultiplier());
-     * System.out.println(getMoveList()); }
-     */
-
 }

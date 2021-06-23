@@ -62,7 +62,7 @@ public class Fight {
     }
 
     /**
-     * Function to give a usable random Enemy Move
+     * Give a usable random Enemy Move
      * 
      * @return The random Move choosen from the enemy MoveList
      */
@@ -78,7 +78,8 @@ public class Fight {
     }
 
     /**
-     * Call attack function with input Move
+     * Call attack function with input Move and after the player has attacked call
+     * the enemyAttack function
      * 
      * @param inputMove The Move that the player wants to use
      */
@@ -88,22 +89,25 @@ public class Fight {
             attack(player.getWeapon(), inputMove, enemy);
         }
         enemyAttack();
-
     }
 
     /**
+     * Main attack function used to handle all the fight possible situation
+     * 
      * @param weapon    The striker's weapon
      * @param move      The striker's move
      * @param character The opponent character
      */
-    public void attack(Weapon weapon, Move move, Character character) {
-        // check if the move failed
+    private void attack(Weapon weapon, Move move, Character character) {
+        // check if the move fail
         if (!move.testFailure()) {
-            setLastFailCharacter(opponent(character), true);
-            setLastUse(opponent(character), move, turnCount);
+            setLastFailCharacter(getOpponent(character), true);
+            setLastUse(getOpponent(character), move, turnCount);
+
         } else {
-            setLastFailCharacter(opponent(character), false);
-            setLastUse(opponent(character), move, turnCount);
+            setLastFailCharacter(getOpponent(character), false);
+            setLastUse(getOpponent(character), move, turnCount);
+
             // check if the damage will kill the opponent using isDead function
             if (isDead((int) Math.round((weapon.getDamageMultiplier() * move.getDamage())), character.getHp())) {
                 // opponent is DEAD
@@ -147,7 +151,7 @@ public class Fight {
     }
 
     /**
-     * Function to set the lastUse of a specific Move
+     * Set the lastUse of a specific Move
      * 
      * @param character The character who attack
      * @param move      The Move choosen by the character
@@ -158,6 +162,7 @@ public class Fight {
     }
 
     /**
+     * Check if a specific Move of a specific character is usable
      * 
      * @param character The character who wants to use the move
      * @param move      The Move that will be used
@@ -168,9 +173,10 @@ public class Fight {
     }
 
     /**
+     * Get if the the last Move of a specific character has failed
      * 
-     * @param character
-     * @return
+     * @param character The character whose last move you want to know has failed
+     * @return TRUE if the character has failed, FALSE in the other case
      */
     public boolean getLastFail(Character character) {
         if (character == player) {
@@ -180,8 +186,10 @@ public class Fight {
     }
 
     /**
+     * Get the last Move used by a specific character
      * 
-     * @return
+     * @param character The character whose last move you want to know
+     * @return The character's last used Move
      */
     public Move getLastMove(Character character) {
         if (character == player) {
@@ -189,13 +197,14 @@ public class Fight {
         }
         return enemyLastMove;
     }
+
     /**
-     * Function to return the opponent of the attack
+     * Get the opponent of the attack
      * 
      * @param character The character that will be attacked
      * @return The character who attack
      */
-    private Character opponent(Character character) {
+    private Character getOpponent(Character character) {
         if (character == player) {
             return enemy;
         }
@@ -203,9 +212,10 @@ public class Fight {
     }
 
     /**
+     * Set if the lastMove of a specific character has failed
      * 
-     * @param character
-     * @param testFailure
+     * @param character   The character whose last move failed
+     * @param testFailure If the move has failed or not
      */
     private void setLastFailCharacter(Character character, boolean testFailure) {
         if (character == player) {
