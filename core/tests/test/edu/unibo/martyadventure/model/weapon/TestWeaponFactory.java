@@ -35,7 +35,7 @@ public class TestWeaponFactory {
 
     @Test
     void testCreateRandomWeapon() {
-        weaponTest = WeaponFactory.createRandomWeapon(weaponTest.getName(), weaponTest.getDamageMultiplier(),
+        weaponTest = WeaponFactory.createWeapon(weaponTest.getName(), weaponTest.getDamageMultiplier(),
                 weaponTest.getType());
         checkDuplicateItemsInMoveList();
     }

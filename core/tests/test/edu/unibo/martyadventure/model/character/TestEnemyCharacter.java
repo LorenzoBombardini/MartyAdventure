@@ -19,7 +19,7 @@ public class TestEnemyCharacter extends TestCharacter {
     @Test
     void testsetDropitem() {
         final EnemyCharacter character = TestCharacterFactory.getEnemyCharacter();
-        final Weapon weapon2 = WeaponFactory.createRandomWeapon("Test random weapon 2", 2, Weapon.WeaponType.MELEE);
+        final Weapon weapon2 = WeaponFactory.createWeapon("Test random weapon 2", 2, Weapon.WeaponType.MELEE);
         character.setDropitem(weapon2);
         assertEquals(weapon2, character.getDropitem());
     }

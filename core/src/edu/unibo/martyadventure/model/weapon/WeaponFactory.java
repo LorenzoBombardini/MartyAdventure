@@ -45,12 +45,12 @@ public class WeaponFactory {
     /**
      * Used to create random weapon
      * 
-     * @param name The name of the weapon
+     * @param name             The name of the weapon
      * @param damageMultiplier The damageMultiplier of the weapon
-     * @param type The type of the weapon
+     * @param type             The type of the weapon
      * @return The weapon
      */
-    private static Weapon createWeapon(String name, double damageMultiplier, Weapon.WeaponType type) {
+    public static Weapon createWeapon(String name, double damageMultiplier, Weapon.WeaponType type) {
         Weapon weapon = new Weapon(name, 0);
         List<Move> moveList = new ArrayList<>();
         int i = 0;
@@ -71,17 +71,6 @@ public class WeaponFactory {
         weapon.setMoveList(moveList);
         weapon.setType(type);
         return weapon;
-    }
-    
-    /**
-     * Function used to create a random weapon
-     * @param name The name of the weapon
-     * @param damageMultiplier The damageMultiplier of the weapon
-     * @param type The type of the weapon
-     * @return The random weapon
-     */
-    public static Weapon createRandomWeapon(String name, double damageMultiplier, Weapon.WeaponType type) {
-        return createWeapon(name, damageMultiplier, type);
     }
 
     /**
@@ -112,20 +101,21 @@ public class WeaponFactory {
      * @param type The type of the weapon
      * @return The new random weapon based on level
      */
-    public static Weapon createRandomWeaponLevel(String name,MapManager.Maps map,  Weapon.WeaponType type) {
+    public static Weapon createRandomWeaponLevel(String name, MapManager.Maps map, Weapon.WeaponType type) {
         switch (map) {
         case MAP1:
-            return createRandomWeapon(name, (double) (randomDamageMultiplier() * LEVEL1), type);
+            return createWeapon(name, (double) (randomDamageMultiplier() * LEVEL1), type);
         case MAP2:
-            return createRandomWeapon(name, (double) (randomDamageMultiplier() * LEVEL2), type);
+            return createWeapon(name, (double) (randomDamageMultiplier() * LEVEL2), type);
         case MAP3:
-            return createRandomWeapon(name, (double) (randomDamageMultiplier() * LEVEL3), type);
+            return createWeapon(name, (double) (randomDamageMultiplier() * LEVEL3), type);
         default:
             throw new IllegalArgumentException("Wrong Map");
         }
     }
 
     /**
+     * Get random damange multiplier
      * 
      * @return Random double between MIN and MAX
      */
@@ -133,6 +123,9 @@ public class WeaponFactory {
         return ((ThreadLocalRandom.current().nextFloat() % MAX_DAMAGE_MULTIPLIER) + MIN_DAMAGE_MULTIPLIER);
     }
 
+    /**
+     * Private constructor
+     */
     private WeaponFactory() {
 
     }

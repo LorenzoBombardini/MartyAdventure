@@ -50,20 +50,6 @@ public class TestFight {
     }
 
     @Test
-    void testEnemyAttack() {
-        final PlayerCharacter player = TestCharacterFactory.getPlayerCharacter();
-        final EnemyCharacter enemy = TestCharacterFactory.getEnemyCharacter();
-        final Fight testFight = new Fight(player, enemy);
-
-        int enemyHp = testFight.getEnemy().getHp();
-        int damage = (int) (testFight.getPlayer().getWeapon().getDamageMultiplier() * Move.UPPERCUT.getDamage());
-        testFight.attack(testFight.getPlayer().getWeapon(), Move.UPPERCUT, testFight.getEnemy());
-        if (enemyHp != enemy.getHp()) {
-            assertEquals(enemyHp - damage, enemy.getHp());
-        }
-    }
-
-    @Test
     void testIsMoveUsable() {
         final PlayerCharacter player = TestCharacterFactory.getPlayerCharacter();
         player.getWeapon().getMoveList().set(0, Move.HEADSHOT);
@@ -79,11 +65,11 @@ public class TestFight {
         final PlayerCharacter player = TestCharacterFactory.getPlayerCharacter();
         final EnemyCharacter enemy = TestCharacterFactory.getEnemyCharacter();
         final Fight testFight = new Fight(player, enemy);
-        
+
         int lastUse = 0;
         testFight.setLastUse(player, player.getWeapon().getMoveList().get(0), lastUse);
         assertTrue(player.getWeapon().getMoveList().get(0).isUsable(0, lastUse));
-        
+
         lastUse++;
         testFight.setLastUse(player, player.getWeapon().getMoveList().get(0), lastUse);
         assertFalse(player.getWeapon().getMoveList().get(0).isUsable(1, lastUse));
