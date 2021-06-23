@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 
 import edu.unibo.martyadventure.view.screen.ScreenManager;
 
+/**
+ * Starts and manages a "Marty's Adventure" game session.
+ */
 public class MartyAdventureGame extends Game {
 
     private ScreenManager manager;

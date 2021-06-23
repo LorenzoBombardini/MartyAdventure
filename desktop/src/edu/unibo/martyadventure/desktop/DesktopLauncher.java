@@ -8,6 +8,9 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 import edu.unibo.martyadventure.MartyAdventureGame;
 
+/**
+ * Handles the game startup.
+ */
 public class DesktopLauncher {
 
     private static final double BASE_SCALING = 0.8;
