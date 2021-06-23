@@ -9,6 +9,10 @@ public class PlayerCharacter extends Character {
 
     /**
      * Instantiate a new player character.
+     *
+     * @param name   the character's in-game name.
+     * @param hp     the character's health points.
+     * @param weapon the character's weapon.
      */
     public PlayerCharacter(final String name, final int hp, final Weapon weapon) {
         super(name, hp, weapon);

@@ -1,55 +1,67 @@
 package edu.unibo.martyadventure.model.character;
 
-
 import edu.unibo.martyadventure.model.weapon.Weapon;
 
-/*
- * Abstract class used to declare common characteristics 
- * between enemycharacter and playercharacter
- * */
-
+/**
+ * Abstract class for common functionality between characters.
+ */
 public abstract class Character {
 
     private String name;
     private int hp;
     private Weapon weapon;
-    
-    /**
-     * pubblic constructor
-     * @param name The name of the character
-     * @param hp The health points of the character
-     * @param set weapon the weapon of the character
-    */ 
 
+
+    /**
+     * @param name The name of the character.
+     * @param hp   The health points of the character.
+     * @param set  weapon the weapon of the character.
+     */
     public Character(String name, int hp, Weapon weapon) {
         setName(name);
         setHp(hp);
         setWeapon(weapon);
-
     }
 
+    /**
+     * @return the character's name.
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
+    /**
+     * @param name the character's name to set.
+     */
+    public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * @return the character's health points.
+     */
     public int getHp() {
-        return hp;
+        return this.hp;
     }
 
-    public void setHp(int hp) {
+    /**
+     * @param hp the character's health points to set.
+     */
+    public void setHp(final int hp) {
         this.hp = hp;
     }
 
+    /**
+     * @return the characcter's weapon.
+     */
     public Weapon getWeapon() {
-        return weapon;
+        return this.weapon;
     }
 
-    public void setWeapon(Weapon weapon) {
+    /**
+     * @param weapon the character's weapon to set.
+     */
+    public void setWeapon(final Weapon weapon) {
         this.weapon = weapon;
     }
-
 }

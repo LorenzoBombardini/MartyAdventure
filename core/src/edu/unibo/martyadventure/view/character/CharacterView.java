@@ -14,7 +14,7 @@ import edu.unibo.martyadventure.view.entity.EntityState;
 import edu.unibo.martyadventure.view.weapon.WeaponView;
 
 /**
- * A character's base providing basic movement, interaction with given the map
+ * A character shared base providing basic movement, interaction with the map
  * and visual representation.
  */
 public abstract class CharacterView<C extends Character> implements ControllableEntity {
@@ -40,8 +40,8 @@ public abstract class CharacterView<C extends Character> implements Controllable
     protected C character;
     protected WeaponView weaponView;
 
-    protected final float maxAccelleration;
-    protected final float accellerationFactor;
+    protected final float maxAcceleration;
+    protected final float accelerationFactor;
     protected final float maxSpeed;
 
 
@@ -50,11 +50,21 @@ public abstract class CharacterView<C extends Character> implements Controllable
      */
     public abstract Sprite getFightSprite();
 
-    public CharacterView(final C character, final Vector2 initialPosition, final float maxAccelleration,
-            final float accellerationFactor, final float maxSpeed, final TextureRegion texture,
+    /**
+     * @param character          the character's model.
+     * @param initialiPosition   the map position map the character should start at.
+     * @param maxAcceleration    the maximum acceleration of the character movement.
+     * @param accelerationFactor the factor the character should accelerate it's
+     *                           movement speed by.
+     * @param maxSpeed           the maximum speed the character should move at.
+     * @param texture            the character's texture.
+     * @param weaponview         the character weapon's view.
+     */
+    CharacterView(final C character, final Vector2 initialPosition, final float maxAcceleration,
+            final float accelerationFactor, final float maxSpeed, final TextureRegion texture,
             final WeaponView weaponView) {
-        this.maxAccelleration = maxAccelleration;
-        this.accellerationFactor = accellerationFactor;
+        this.maxAcceleration = maxAcceleration;
+        this.accelerationFactor = accelerationFactor;
         this.maxSpeed = maxSpeed;
 
         this.velocity = 0.0f;
@@ -76,7 +86,7 @@ public abstract class CharacterView<C extends Character> implements Controllable
 
     /**
      * Resize the character bounding box.
-     * 
+     *
      * @param resizeWidth  percentage from 1.0 to 0.0 to resize the width to.
      * @param resizeHeight percentage from 1.0 to 0.0 to resize the height to.
      */
@@ -169,7 +179,7 @@ public abstract class CharacterView<C extends Character> implements Controllable
     @Override
     public void calculateNextPosition(final EntityDirection direction, final float delta) {
         // Increase the acceleration (clamped to it's max).
-        this.velocity = Math.min(this.maxAccelleration, this.accellerationFactor * delta);
+        this.velocity = Math.min(this.maxAcceleration, this.accelerationFactor * delta);
 
         // Update the direction
         this.movementDirection = direction;
