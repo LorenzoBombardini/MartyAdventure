@@ -1,5 +1,8 @@
 package edu.unibo.martyadventure.view.character;
 
+/**
+ * The playable characters.
+ */
 public enum Player {
     MARTY("Marty"),
     BIFF("Biff"),

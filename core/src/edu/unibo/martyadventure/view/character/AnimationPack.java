@@ -33,13 +33,18 @@ class AnimationPack {
         return animation;
     }
 
+    /**
+     * @param texture    the texture to extract the frames from.
+     * @param tileWidth  the width of each tile.
+     * @param tileHeight the height of each tile.
+     */
     public AnimationPack(final TextureRegion texture, final int tileWidth, final int tileHeight) {
         TextureRegion[][] textures = texture.split(tileWidth, tileHeight);
         // Workaround for no generic arrays in java
         this.downAnimations = buildAnimation(textures, AnimationPack.DOWN_FRAMES_INDEX);
-        this.leftAnimations= buildAnimation(textures, AnimationPack.LEFT_FRAMES_INDEX);
+        this.leftAnimations = buildAnimation(textures, AnimationPack.LEFT_FRAMES_INDEX);
         this.rightAnimations = buildAnimation(textures, AnimationPack.RIGHT_FRAMES_INDEX);
-        this.upAnimations= buildAnimation(textures, AnimationPack.UP_FRAMES_INDEX);
+        this.upAnimations = buildAnimation(textures, AnimationPack.UP_FRAMES_INDEX);
     }
 
     /**
